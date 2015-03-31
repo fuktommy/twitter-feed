@@ -1,0 +1,4 @@
+composer.*
+setup.sh
+vendor
+conf/siteconfig.php

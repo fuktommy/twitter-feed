@@ -1,0 +1,37 @@
+<?php // -*- coding: utf-8 -*-
+
+// local variables
+$appRoot = __DIR__ . '/..';
+
+// global settings
+setlocale(LC_ALL, 'en_US.UTF-8');
+date_default_timezone_set('Asia/Tokyo');
+ini_set('user_agent', 'https://github.com/fuktommy/twitter-feed');
+
+// configration
+return [
+    'twitter_consumer_key' => 'get it from https://apps.twitter.com/',
+    'twitter_consumer_secret' => '',
+    'twitter_access_token' => '',
+    'twitter_access_token_secret' => '',
+
+    'site_top' => 'http://twf.fuktommy.com/',
+    'rights' => 'http://creativecommons.org/licenses/by/2.1/jp/',
+
+    // PubSubHubbub. set empty to skip publish.
+    'push_publisher' => 'https://pubsubhubbub.appspot.com/publish',
+
+    'log_dir'         => "{$appRoot}/log",
+    'twitter_cache_dir' => "{$appRoot}/tmp/twitter_cache",
+
+    'smarty_template_dir' => "{$appRoot}/app/templates",
+    'smarty_plugins_dir' => array("{$appRoot}/app/plugins"),
+    'smarty_compile_dir' => "{$appRoot}/tmp/templates_c",
+    'smarty_cache_dir' => "{$appRoot}/tmp/smarty_cache",
+
+    'twitterfeed_default_userid' => 'fuktommy',
+
+    'twitterfeed_userids' => [
+        'fuktommy',
+    ],
+];
