@@ -44,17 +44,14 @@ class TwitterFeedAction implements WebIo\Action
      */
     public function execute(WebIo\Context $context)
     {
-        // For errors and debug output.
-        $context->putHeader('Content-Type', 'text/plain; charset=utf-8');
+        $context->putHeader('Content-Type', 'text/html; charset=utf-8');
 
         $allowedUserIds = $context->config['twitterfeed_userids'];
         $userId = $context->get('get', 'id', $context->config['twitterfeed_default_userid']);
         if ((! preg_match('/^[0-9A-Za-z_]+$/', $userId)) || (! in_array($userId, $allowedUserIds))) {
-            $context->putHeader('HTTP/1.0 404 Not Found');
-            $context->putHeader('Content-Type', 'text/html; charset=utf-8');
-            $smarty = $context->getSmarty();
-            $smarty->assign('config', $context->config);
-            $smarty->display('notfound.tpl');
+            $this->error($context,
+                'HTTP/1.0 404 Not Found',
+                'Feed Not Found - This system can display registered userid only.');
             return;
         }
 
@@ -62,9 +59,19 @@ class TwitterFeedAction implements WebIo\Action
         $feed = $feedFetcher->fetchFeed($userId);
         if (empty($feed->content)) {
             $context->getLog('twitterfeed')->warning("Cannot parse json: {$userId}");
+            $this->error($context,
+                'HTTP/1.0 404 Not Found',
+                'Feed Not Found - API response is empty.');
+        }
+        if ($feed->content[0]['user']['protected']) {
+            $context->getLog('twitterfeed')->warning("Private feed: {$userId}");
+            $this->error($context,
+                'HTTP/1.0 403 Forbidden',
+                'Feed Forbidden - Private account.');
         }
 
         if ($context->get('get', 'debug')) {
+             $context->putHeader('Content-Type', 'text/plain; charset=utf-8');
             echo json_encode($feed->content, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE), "\n";
             return;
         }
@@ -80,6 +87,15 @@ class TwitterFeedAction implements WebIo\Action
         $smarty->assign('feed', $feed->content);
         $smarty->assign('userId', $userId);
         $smarty->display('atom.tpl');
+    }
+
+    private function error(WebIo\Context $context, $status, $message)
+    {
+        $context->putHeader($status);
+        $smarty = $context->getSmarty();
+        $smarty->assign('config', $context->config);
+        $smarty->assign('message', $message);
+        $smarty->display('error.tpl');
     }
 }
 

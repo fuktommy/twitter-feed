@@ -7,7 +7,7 @@
   <subtitle>{$feed[0].user.description|escape}</subtitle>
   <link rel="self" href="{$config.site_top}{$userId|escape}" />
   <link rel="alternate" href="https://twitter.com/{$userId|escape:"url"}" type="text/html"/>
-  <updated>{$feed[0].created_at|strtotime|date_format:"%Y-%m-%dT%H:%M:%S%z"|escape}</updated>
+  <updated>{$feed[0].created_at|atom_date|escape}</updated>
   <generator>https://github.com/fuktommy/twitter-feed</generator>
   <id>tag:fuktommy.com,2015:twitter/feed</id>
   <author><name>{$feed[0].user.name|escape}</name></author>
@@ -21,8 +21,8 @@
     <content type="html"><![CDATA[
         {$content|replace:"]]>":""}
     ]]></content>
-    <published>{$entry.created_at|strtotime|date_format:"%Y-%m-%dT%H:%M:%S%z"|escape}</published>
-    <updated>{$entry.created_at|strtotime|date_format:"%Y-%m-%dT%H:%M:%S%z"|escape}</updated>
+    <published>{$entry.created_at|atom_date|escape}</published>
+    <updated>{$entry.created_at|atom_date|escape}</updated>
     <author><name>{$entry.user.screen_name|escape} - {$entry.user.name|escape}</name></author>
     <id>tag:fuktommy.com,2015:twitter/feed/{$entry.id_str|escape}</id>
     {if $entry.user.screen_name === $config.twitterfeed_default_userid && empty($entry.retweeted_status)}

@@ -1,7 +1,13 @@
 {* -*- coding: utf-8 -*- *}
 {* Copyright (c) 2011-2015 Satoshi Fukutomi <info@fuktommy.com>. *}
 {strip}
-    {$entry.text}
+    {$entry|@decorate_tweet_text}
+
+    {if $entry.in_reply_to_status_id_str}
+        <div>
+            - Reply to <a href="https://twitter.com/{$entry.in_reply_to_screen_name|escape:"url"}/status/{$entry.in_reply_to_status_id_str|escape:"url"}">@{$entry.in_reply_to_screen_name|escape}</a>
+        </div>
+    {/if}
 
     {if $entry.entities.media}
         <ul>
