@@ -30,6 +30,10 @@ function smarty_modifier_decorate_tweet_text($entry)
                     . rawurlencode($rule['screen_name'])
                     . '" title="' . htmlspecialchars($rule['name'])
                     . '">@' . htmlspecialchars($rule['screen_name']) . '</a>';
+        } elseif ($rule['_type'] === 'media') {
+            $anchor = '<a href="' . htmlspecialchars($rule['url'])
+                    . '" title="' . htmlspecialchars($rule['expanded_url'])
+                    . '">' . htmlspecialchars($rule['display_url']) . '</a>';
         } else {
             continue;
         }
