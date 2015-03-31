@@ -18,7 +18,8 @@ function smarty_modifier_decorate_tweet_text($entry)
     });
     foreach ($rules as $rule) {
         if ($rule['_type'] === 'urls') {
-            $anchor = '<a href="' . htmlspecialchars($rule['expanded_url'])
+            $anchor = '<a href="' . htmlspecialchars($rule['url'])
+                    . '" title="' . htmlspecialchars($rule['expanded_url'])
                     . '">' . htmlspecialchars($rule['display_url']) . '</a>';
         } elseif ($rule['_type'] === 'hashtags') {
             $anchor = '<a href="https://twitter.com/hashtag/'
@@ -27,7 +28,6 @@ function smarty_modifier_decorate_tweet_text($entry)
         } elseif ($rule['_type'] === 'user_mentions') {
             $anchor = '<a href="https://twitter.com/'
                     . rawurlencode($rule['screen_name'])
-                    . '/status/' . rawurlencode($rule['id_str'])
                     . '" title="' . htmlspecialchars($rule['name'])
                     . '">@' . htmlspecialchars($rule['screen_name']) . '</a>';
         } else {
