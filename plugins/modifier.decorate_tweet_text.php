@@ -4,10 +4,15 @@
  */
 function smarty_modifier_decorate_tweet_text($entry)
 {
-    $text = $entry['text'];
+    if (empty($entry['retweeted_status'])) {
+        $tweet = $entry;
+    } else {
+        $tweet = $entry['retweeted_status'];
+    }
+    $text = $tweet['text'];
 
     $rules = [];
-    foreach ($entry['entities'] as $type => $rule) {
+    foreach ($tweet['entities'] as $type => $rule) {
         foreach ($rule as $r) { 
             $r['_type'] = $type;
             $rules[] = $r;
@@ -40,6 +45,15 @@ function smarty_modifier_decorate_tweet_text($entry)
         $text = mb_substr($text, 0, $rule['indices'][0], 'utf8')
               . $anchor
               . mb_substr($text, $rule['indices'][1], null, 'utf8');
+    }
+
+    if (! empty($entry['retweeted_status'])) {
+        $text = 'RT <a href="https://twitter.com/'
+              . htmlspecialchars($entry['retweeted_status']['user']['screen_name'])
+              . '/status/' . htmlspecialchars($entry['retweeted_status']['id_str'])
+              . '" title="' . htmlspecialchars($entry['retweeted_status']['user']['name'])
+              . '">@' . htmlspecialchars($entry['retweeted_status']['user']['screen_name'])
+              . '</a>: ' . $text;
     }
 
     $text = nl2br($text);

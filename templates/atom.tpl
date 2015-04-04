@@ -5,7 +5,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{$feed[0].user.name|escape} - @{$feed[0].user.screen_name|escape} - twitter</title>
   <subtitle>{$feed[0].user.description|escape}</subtitle>
-  <link rel="self" href="{$config.site_top}{$userId|escape}" />
+  {if $feed[0].user.screen_name === $config.twitterfeed_default_userid}
+    <link rel="self" href="{$config.site_top}" />
+  {else}
+    <link rel="self" href="{$config.site_top}{$userId|escape}" />
+  {/if}
   <link rel="alternate" href="https://twitter.com/{$userId|escape:"url"}" type="text/html"/>
   <updated>{$feed[0].created_at|atom_date|escape}</updated>
   <generator>https://github.com/fuktommy/twitter-feed</generator>
