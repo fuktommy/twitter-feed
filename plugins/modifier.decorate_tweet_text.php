@@ -48,12 +48,15 @@ function smarty_modifier_decorate_tweet_text($entry)
     }
 
     if (! empty($entry['retweeted_status'])) {
-        $text = 'RT <a href="https://twitter.com/'
-              . htmlspecialchars($entry['retweeted_status']['user']['screen_name'])
-              . '/status/' . htmlspecialchars($entry['retweeted_status']['id_str'])
+        $origUrl = 'https://twitter.com/'
+                 . rawurlencode($entry['retweeted_status']['user']['screen_name'])
+                 . '/status/' . rawurlencode($entry['retweeted_status']['id_str']);
+        $text = 'RT <cite><a href="'
+              . htmlspecialchars($origUrl)
               . '" title="' . htmlspecialchars($entry['retweeted_status']['user']['name'])
               . '">@' . htmlspecialchars($entry['retweeted_status']['user']['screen_name'])
-              . '</a>: ' . $text;
+              . '</a></cite>: <blockquote cite="' . htmlspecialchars($origUrl)
+              . '"><div>' . $text . '</div></blockquote>';
     }
 
     $text = nl2br($text);
