@@ -1,5 +1,5 @@
 {* -*- coding: utf-8 -*- *}
-{* Copyright (c) 2011-2015 Satoshi Fukutomi <info@fuktommy.com>. *}
+{* Copyright (c) 2011-2016 Satoshi Fukutomi <info@fuktommy.com>. *}
 {strip}
     {$entry|@decorate_tweet_text}
 
@@ -14,11 +14,19 @@
         </div>
     {/if}
 
-    {if $entry.entities.media && ! $entry.retweeted_status}
+    {if $entry.entities.media}
+        {if $entry.retweeted_status}
+            <blockquote cite="https://twitter.com/{$entry.retweeted_status.user.screen_name|escape:"url"}/status/{$entry.retweeted_status.id_str|escape:"url"}">
+        {/if}
         <ul>
         {foreach from=$entry.entities.media item="media"}
-            <li><a href="{$media.expanded_url|escape}"><img src="{$media.media_url_https|escape}" alt=""></a></li>
+            {if $media.type === "photo"}
+                <li><a href="{$media.expanded_url|escape}"><img src="{$media.media_url_https|escape}" width="{$media.sizes.medium.w|escape}" height="{$media.sizes.medium.h|escape}" alt=""></a></li>
+            {/if}
         {/foreach}
         </ul>
+        {if $entry.retweeted_status}
+            </blockquote>
+        {/if}
     {/if}
 {/strip}

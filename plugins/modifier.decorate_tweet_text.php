@@ -1,6 +1,8 @@
 <?php
 /**
  * Decorate tweet text plugin.
+ *
+ * Copyright (c) 2015,2016 Satoshi Fukutomi <info@fuktommy.com>.
  */
 function smarty_modifier_decorate_tweet_text($entry)
 {
