@@ -14,29 +14,15 @@
         </div>
     {/if}
 
-    {if $entry.entities.media}
-        {if $entry.retweeted_status}
-            <blockquote cite="https://twitter.com/{$entry.retweeted_status.user.screen_name|escape:"url"}/status/{$entry.retweeted_status.id_str|escape:"url"}">
-        {/if}
-        <ul>
-        {foreach from=$entry.entities.media item="media"}
-            {if $media.type === "photo"}
-                <li><a href="{$media.expanded_url|escape}"><img src="{$media.media_url_https|escape}" width="{$media.sizes.medium.w|escape}" height="{$media.sizes.medium.h|escape}" alt=""></a></li>
-            {/if}
-        {/foreach}
-        </ul>
-        {if $entry.retweeted_status}
-            </blockquote>
-        {/if}
-    {/if}
-
     {if $entry.extended_entities.media}
         {if $entry.retweeted_status}
             <blockquote cite="https://twitter.com/{$entry.retweeted_status.user.screen_name|escape:"url"}/status/{$entry.retweeted_status.id_str|escape:"url"}">
         {/if}
         <ul>
         {foreach from=$entry.extended_entities.media item="media"}
-            {if $media.type === "video"}
+            {if $media.type === "photo"}
+                <li><a href="{$media.expanded_url|escape}"><img src="{$media.media_url_https|escape}" width="{$media.sizes.medium.w|escape}" height="{$media.sizes.medium.h|escape}" alt=""></a></li>
+            {elseif $media.type === "video"}
                 <li>video: <a href="{$media.expanded_url|escape}">{$media.display_url|escape}</a></li>
             {/if}
         {/foreach}
