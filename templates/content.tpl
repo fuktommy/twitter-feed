@@ -29,4 +29,20 @@
             </blockquote>
         {/if}
     {/if}
+
+    {if $entry.extended_entities.media}
+        {if $entry.retweeted_status}
+            <blockquote cite="https://twitter.com/{$entry.retweeted_status.user.screen_name|escape:"url"}/status/{$entry.retweeted_status.id_str|escape:"url"}">
+        {/if}
+        <ul>
+        {foreach from=$entry.extended_entities.media item="media"}
+            {if $media.type === "video"}
+                <li>video: <a href="{$media.expanded_url|escape}">{$media.display_url|escape}</a></li>
+            {/if}
+        {/foreach}
+        </ul>
+        {if $entry.retweeted_status}
+            </blockquote>
+        {/if}
+    {/if}
 {/strip}
