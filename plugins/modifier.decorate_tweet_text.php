@@ -4,13 +4,8 @@
  *
  * Copyright (c) 2015,2016 Satoshi Fukutomi <info@fuktommy.com>.
  */
-function smarty_modifier_decorate_tweet_text($entry)
+function smarty_modifier_decorate_tweet_text($tweet)
 {
-    if (empty($entry['retweeted_status'])) {
-        $tweet = $entry;
-    } else {
-        $tweet = $entry['retweeted_status'];
-    }
     $text = $tweet['text'];
 
     $rules = [];
@@ -47,18 +42,6 @@ function smarty_modifier_decorate_tweet_text($entry)
         $text = mb_substr($text, 0, $rule['indices'][0], 'utf8')
               . $anchor
               . mb_substr($text, $rule['indices'][1], null, 'utf8');
-    }
-
-    if (! empty($entry['retweeted_status'])) {
-        $origUrl = 'https://twitter.com/'
-                 . rawurlencode($entry['retweeted_status']['user']['screen_name'])
-                 . '/status/' . rawurlencode($entry['retweeted_status']['id_str']);
-        $text = 'RT <cite><a href="'
-              . htmlspecialchars($origUrl)
-              . '" title="' . htmlspecialchars($entry['retweeted_status']['user']['name'])
-              . '">@' . htmlspecialchars($entry['retweeted_status']['user']['screen_name'])
-              . '</a></cite>: <blockquote cite="' . htmlspecialchars($origUrl)
-              . '"><div>' . $text . '</div></blockquote>';
     }
 
     $text = nl2br($text);
