@@ -1,7 +1,7 @@
 <?php
 /* Twitter Feed.
  *
- * Copyright (c) 2011-2015 Satoshi Fukutomi <info@fuktommy.com>.
+ * Copyright (c) 2011-2016 Satoshi Fukutomi <info@fuktommy.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,11 +70,11 @@ class TwitterFeedAction implements WebIo\Action
                 'Feed Forbidden - Private account.');
         }
 
-        if ($context->get('get', 'debug')) {
-             $context->putHeader('Content-Type', 'text/plain; charset=utf-8');
-            echo json_encode($feed->content, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE), "\n";
-            return;
-        }
+        //if ($context->get('get', 'debug')) {
+        //     $context->putHeader('Content-Type', 'text/plain; charset=utf-8');
+        //    echo json_encode($feed->content, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE), "\n";
+        //    return;
+        //}
 
         if ($feed->updated) {
             $publisher = new PubSubHubbub\Publisher($context->getResource());
