@@ -2,7 +2,7 @@
 /*
  * Twitter Json Feed.
  *
- * Copyright (c) 2011-2015 Satoshi Fukutomi <info@fuktommy.com>.
+ * Copyright (c) 2011-2016 Satoshi Fukutomi <info@fuktommy.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -128,8 +128,7 @@ class JsonFeedFetcher
             $connection = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
             $obj = $connection->get('statuses/user_timeline', ['screen_name' => $userId, 'count' => '50']);
             $json = json_encode($obj);
-        } catch (ErrorException $e) {
-            // I can not catch exceptions here...
+        } catch (\ErrorException $e) {
             $headerStr = implode(', ', $http_response_header);
             $log->warning("{$e->getMessage()} for {$userId}, {$headerStr}");
             return $this->_readCache($userId);
