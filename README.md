@@ -1,5 +1,5 @@
-Google Plus Feed
-================
+Twitter Feed
+============
 
 * Author:
     * Satoshi Fukutomi <info@fuktommy.com>
