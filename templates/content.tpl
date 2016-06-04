@@ -1,7 +1,9 @@
 {* -*- coding: utf-8 -*- *}
 {* Copyright (c) 2011-2016 Satoshi Fukutomi <info@fuktommy.com>. *}
 {strip}
-{if $entry.retweeted_status}
+{if ! empty($entry.user.protected)}
+    PROTECTED
+{elseif $entry.retweeted_status}
     <div>RT <cite><a href="{$entry.retweeted_status|@tweet_url|escape}" title="{$entry.retweeted_status.user.name|escape}">@{$entry.retweeted_status.user.screen_name|escape}</a></cite>:
     <blockquote cite="{$entry.retweeted_status|@tweet_url|escape}"><div>
         {include file="content.tpl" entry=$entry.retweeted_status}
