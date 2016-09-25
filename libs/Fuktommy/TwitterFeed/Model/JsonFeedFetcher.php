@@ -126,7 +126,11 @@ class JsonFeedFetcher
         $log->info("accessing json for {$userId}");
         try {
             $connection = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
-            $obj = $connection->get('statuses/user_timeline', ['screen_name' => $userId, 'count' => '50']);
+            $obj = $connection->get('statuses/user_timeline', [
+                'screen_name' => $userId,
+                'count' => '50',
+                'tweet_mode' => 'extended',
+            ]);
             $json = json_encode($obj);
         } catch (\ErrorException $e) {
             $headerStr = implode(', ', $http_response_header);

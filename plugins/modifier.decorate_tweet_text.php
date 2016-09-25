@@ -6,7 +6,7 @@
  */
 function smarty_modifier_decorate_tweet_text($tweet)
 {
-    $text = $tweet['text'];
+    $text = $tweet['full_text'];
 
     $rules = [];
     foreach ($tweet['entities'] as $type => $rule) {
