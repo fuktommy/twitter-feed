@@ -132,14 +132,12 @@ class JsonFeedFetcher
                 'tweet_mode' => 'extended',
             ]);
             $json = json_encode($obj);
-        } catch (\ErrorException $e) {
-            $headerStr = implode(', ', $http_response_header);
-            $log->warning("{$e->getMessage()} for {$userId}, {$headerStr}");
+        } catch (\Exception $e) {
+            $log->warning("{$e->getMessage()} for {$userId}");
             return $this->_readCache($userId);
         }
         if (empty($json)) {
-            $headerStr = implode(', ', $http_response_header);
-            $log->warning("empty json from api for {$userId}, {$headerStr}");
+            $log->warning("empty json from api for {$userId}");
             return $this->_readCache($userId);
         }
         file_put_contents($cacheFile, $json);
