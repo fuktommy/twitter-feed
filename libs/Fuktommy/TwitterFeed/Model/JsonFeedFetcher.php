@@ -81,7 +81,23 @@ class JsonFeedFetcher
                  ->warning("empty json for {$userId}");
             return new JsonFeed(array(), false);
         }
-        return new JsonFeed($feed, $oldJson !== $json);
+        $updated = $this->_signatureOf($oldJson) !== $this->_signatureOf($json);
+        return new JsonFeed($feed, $updated);
+    }
+
+    private function _signatureOf($json)
+    {
+        if (empty($json)) {
+            return '';
+        }
+        $feed = json_decode($json, true);
+        if (empty($feed)) {
+            return '';
+        }
+        if (empty($feed[0]['id_str'])) {
+            return '';
+        }
+        return $feed[0]['id_str'];
     }
 
     private function _cacheFileOf($userId)
