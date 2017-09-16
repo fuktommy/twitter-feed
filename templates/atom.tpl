@@ -1,6 +1,5 @@
-{* -*- coding: utf-8 -*- *}
-{* Copyright (c) 2011-2016 Satoshi Fukutomi <info@fuktommy.com>. *}
 <?xml version="1.0" encoding="UTF-8"?>
+{* Copyright (c) 2011-2016 Satoshi Fukutomi <info@fuktommy.com>. *}
 <?xml-stylesheet href="/atomfeed.xsl" type="text/xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{$feed[0].user.name|escape} - @{$feed[0].user.screen_name|escape} - twitter</title>
@@ -29,7 +28,7 @@
     <updated>{$entry.created_at|atom_date|escape}</updated>
     {strip}
     <author><name>
-        {if $entry.retweeted_status}
+        {if ! empty($entry.retweeted_status)}
             {$entry.retweeted_status.user.screen_name|escape} - {$entry.retweeted_status.user.name|escape}
         {else}
             {$entry.user.screen_name|escape} - {$entry.user.name|escape}
@@ -37,7 +36,7 @@
     </name></author>
     {/strip}
     <id>tag:fuktommy.com,2015:twitter/feed/{$entry.id_str|escape}</id>
-    {if ! $entry.retweeted_status && $entry.user.screen_name === $config.twitterfeed_default_userid && empty($entry.retweeted_status)}
+    {if empty($entry.retweeted_status) && $entry.user.screen_name === $config.twitterfeed_default_userid && empty($entry.retweeted_status)}
         <rights>{$config.rights|escape}</rights>
     {/if}
   </entry>

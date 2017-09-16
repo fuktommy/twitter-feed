@@ -3,7 +3,7 @@
 {strip}
 {if ! empty($entry.user.protected)}
     PROTECTED
-{elseif $entry.retweeted_status}
+{elseif ! empty($entry.retweeted_status)}
     <div>RT <cite><a href="{$entry.retweeted_status|@tweet_url|escape}" title="{$entry.retweeted_status.user.name|escape}">@{$entry.retweeted_status.user.screen_name|escape}</a></cite>:
     <blockquote cite="{$entry.retweeted_status|@tweet_url|escape}"><div>
         {include file="content.tpl" entry=$entry.retweeted_status}
@@ -18,7 +18,7 @@
         </div>
     {/if}
 
-    {if $entry.extended_entities.media}
+    {if ! empty($entry.extended_entities.media)}
         <ul>
         {foreach from=$entry.extended_entities.media item="media"}
             {if $media.type === "photo"}
@@ -32,7 +32,7 @@
         </ul>
     {/if}
 
-    {if $entry.quoted_status}
+    {if ! empty($entry.quoted_status)}
         <div>
         - Quoted from <cite><a href="{$entry.quoted_status|@tweet_url|escape}" title="{$entry.quoted_status.user.name|escape}">@{$entry.quoted_status.user.screen_name|escape}</a></cite>:
         <blockquote cite="{$entry.quoted_status|@tweet_url|escape}"><div>
