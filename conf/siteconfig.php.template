@@ -16,7 +16,7 @@ return [
     'twitter_access_token_secret' => '',
 
     'site_top' => 'http://twf.fuktommy.com/',
-    'rights' => 'http://creativecommons.org/licenses/by/2.1/jp/',
+    'rights' => 'https://creativecommons.org/publicdomain/zero/1.0/deed.ja',
 
     // PubSubHubbub. set empty to skip publish.
     'push_publisher' => 'https://pubsubhubbub.appspot.com/publish',
