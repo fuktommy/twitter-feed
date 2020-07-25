@@ -6,7 +6,10 @@
 {elseif ! empty($entry.retweeted_status)}
     <div>RT <cite><a href="{$entry.retweeted_status|@tweet_url|escape}" title="{$entry.retweeted_status.user.name|escape}">@{$entry.retweeted_status.user.screen_name|escape}</a></cite>:
     <blockquote cite="{$entry.retweeted_status|@tweet_url|escape}"><div>
+        ...
+        {*
         {include file="content.tpl" entry=$entry.retweeted_status}
+        *}
     </div></blockquote>
     </div>
 {else}
@@ -36,7 +39,10 @@
         <div>
         - Quoted from <cite><a href="{$entry.quoted_status|@tweet_url|escape}" title="{$entry.quoted_status.user.name|escape}">@{$entry.quoted_status.user.screen_name|escape}</a></cite>:
         <blockquote cite="{$entry.quoted_status|@tweet_url|escape}"><div>
+            ...
+            {*
             {include file="content.tpl" entry=$entry.quoted_status}
+            *}
         </div></blockquote>
         </div>
     {/if}

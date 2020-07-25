@@ -6,7 +6,7 @@ Twitter Feed
 * WebSite:
     * https://github.com/fuktommy/twitter-feed
 * Sample
-    * http://twf.fuktommy.com/fuktommy
+    * https://twf.fuktommy.com/fuktommy
 
 Install
 -------
