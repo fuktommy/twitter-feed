@@ -12,7 +12,7 @@ Install
 -------
 
 1. Register twitter API on https://apps.twitter.com/
-2. Install PHP5.4+, php-curl, Smarty and PEAR::Log
+2. Install PHP5.4+, php-curl, Smarty and KLogger
 3. Run composer
 4. Copy conf/siteconfig.php.template to conf/siteconfig.php and modify it
 5. Setup directories in conf/siteconfig.php
